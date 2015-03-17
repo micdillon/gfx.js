@@ -15,7 +15,7 @@ js.static = os.getenv('HOME') .. '/.gfx.js/static/data/'
 js.template = os.getenv('HOME') .. '/.gfx.js/templates/'
 js.prefix = '/data/'
 
-js.verbose = true
+js.verbose = false
 
 os.execute('mkdir -p "' .. js.static .. '"')
 
@@ -398,7 +398,9 @@ end
 
 function js.clear()
    local files = dir.getfiles(js.static)
-   print('[gfx.js] clearing all cached graphics')
+   if js.verbose then
+      print('[gfx.js] clearing all cached graphics')
+   end
    for _,file in ipairs(files) do
       os.remove(file)
    end
@@ -449,7 +451,7 @@ function js.startserver(port)
    local status = io.popen('curl -s http://localhost:'..port..'/'):read('*all'):gsub('%s*','')
    if status == '' then
       -- start up server:
-      os.execute('node "' .. os.getenv('HOME') .. '/.gfx.js/server.js" --port '..port..' > "' .. os.getenv('HOME') .. '/.gfx.js/server.log" &')
+      os.execute('nodejs "' .. os.getenv('HOME') .. '/.gfx.js/server.js" --port '..port..' > "' .. os.getenv('HOME') .. '/.gfx.js/server.log" &')
       print('[gfx.js] server started on port '..port..', graphics will be rendered into http://localhost:'..port)
    else
       print('[gfx.js] server already running on port '..port..', graphics will be rendered into http://localhost:'..port)
