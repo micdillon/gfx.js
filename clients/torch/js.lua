@@ -54,7 +54,7 @@ function js.image(img, opts)
       win = js.images(img, opts)
       return win
    end
-      
+
    -- min/max
    local min = opts.min or img:min()
    local max = opts.max or img:max()
@@ -204,7 +204,7 @@ local function format(data, chart)
             values = data
          }
       end
-      
+
       -- one dataset only?
       if #data == 0 then
          data = {data}
@@ -219,7 +219,7 @@ local function format(data, chart)
             }
             data[i] = dataset
          end
-         
+
          -- legend:
          dataset.key = dataset.key or ('Data #'..i)
 
